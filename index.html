@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz de Marketing - Grupo Nebraska</title>
+    <style>
+        :root {
+            --primary: #004aad; /* Azul Nebraska */
+            --secondary: #FFD100; /* Amarelo para contrastes */
+            --accent: #E31837; /* Vermelho para destaques */
+            --background: #F5F7FA;
+            --text: #2D2926;
+        }
+
+        body {
+            background: var(--background);
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+        }
+
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .screen {
+            padding: 2.5rem;
+            display: none;
+        }
+
+        .active-screen {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        h3 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .option-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .option-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem;
+            background: var(--background);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .option-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .option-card input {
+            width: 60px;
+            height: 40px;
+            text-align: center;
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--primary);
+        }
+
+        .btn-confirm {
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            display: block;
+            margin: 2rem auto 0;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-confirm:hover {
+            background: #003b8a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,74,173,0.3);
+        }
+
+        .comparison-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            background: var(--background);
+            border-radius: 12px;
+        }
+
+        .meter {
+            flex: 1;
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            margin: 0 1rem;
+            position: relative;
+        }
+
+        .meter-fill {
+            height: 100%;
+            border-radius: 5px;
+            position: absolute;
+            transition: width 0.5s ease;
+        }
+
+        .meter-fill-importance {
+            background: var(--primary);
+        }
+
+        .meter-fill-time {
+            background: var(--accent);
+        }
+
+        .lead-form {
+            background: var(--background);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+        }
+
+        .lead-form input {
+            width: 100%;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <!-- Tela 1 - Importância -->
+        <div class="screen active-screen" id="screen1">
+            <h3>🎯 Na sua opinião, o que traz mais RETORNO para o marketing de um restaurante?</h3>
+            <div class="option-grid">
+                <div class="option-card">
+                    📱 Postagens em mídias sociais
+                    <input type="number" min="1" max="5">
+                </div>
+                <div class="option-card">
+                    📸 Fotografia e vídeo
+                    <input type="number" min="1" max="5">
+                </div>
+                <div class="option-card">
+                    🚀 Estratégias e campanhas
+                    <input type="number" min="1" max="5">
+                </div>
+                <div class="option-card">
+                    💰 Tráfego Pago
+                    <input type="number" min="1" max="5">
+                </div>
+                <div class="option-card">
+                    🤝 Parceria com influenciadores
+                    <input type="number" min="1" max="5">
+                </div>
+            </div>
+            <button class="btn-confirm" onclick="validateForm(1)">Continuar ➔</button>
+        </div>
+
+        <!-- Tela 2 - Tempo Gasto -->
+        <div class="screen" id="screen2">
+            <h3>⏰ Hoje onde você mais GASTA TEMPO no seu marketing?</h3>
+            <div class="option-grid">
+                <div class="option-card">
+                    📱 Postagens em mídias sociais
+                    <input type="number" min="1" max="5">
+                </div>
+                <div class="option-card">
+                    📸 Fotografia e vídeo
+                    <input type="number" min="1" max="5">
+                </div>
+                <div class="option-card">
+                    🚀 Estratégias e campanhas
+                    <input type="number" min="1" max="5">
+                </div>
+                <div class="option-card">
+                    💰 Tráfego Pago
+                    <input type="number" min="1" max="5">
+                </div>
+                <div class="option-card">
+                    🤝 Parceria com influenciadores
+                    <input type="number" min="1" max="5">
+                </div>
+            </div>
+            <button class="btn-confirm" onclick="validateForm(2)">Ver Resultado ➔</button>
+        </div>
+
+        <!-- Tela Final -->
+        <div class="screen" id="resultScreen">
+            <h3>📊 Sua Análise de Marketing</h3>
+            <div class="result-grid" id="comparisonGrid"></div>
+            
+            <div id="resultMessage" style="text-align: center; margin: 2rem 0;">
+                <h3 style="color: var(--primary);" id="mainMessage"></h3>
+                <p id="secondaryMessage" style="color: var(--text);"></p>
+            </div>
+
+            <!-- Formulário de Lead -->
+            <div class="lead-form" id="leadForm" style="display: none;">
+                <h4>📩 Quer ajuda para melhorar? Deixe seus dados!</h4>
+                <input type="text" placeholder="Seu nome" id="name">
+                <input type="text" placeholder="Nome do seu restaurante" id="restaurant">
+                <button class="btn-confirm" onclick="submitLead()">Enviar e Receber Dicas</button>
+                <small style="display: block; margin-top: 1rem;">Ao enviar, você concorda com nossa política de privacidade</small>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let importance = [];
+        let timeSpent = [];
+        let misalignment = 0; // Variável global para armazenar o desalinhamento
+        const options = [
+            "Postagens em mídias sociais",
+            "Fotografia e vídeo",
+            "Estratégias e campanhas",
+            "Tráfego Pago",
+            "Parceria com influenciadores"
+        ];
+
+        function validateForm(screenNumber) {
+            const inputs = document.querySelectorAll(`#screen${screenNumber} input`);
+            const values = Array.from(inputs).map(input => parseInt(input.value));
+
+            // Verifica se todos os campos estão preenchidos
+            if (values.some(isNaN)) {
+                alert("❌ Por favor, preencha todas as opções!");
+                return;
+            }
+
+            // Verifica se há números repetidos
+            if (new Set(values).size !== 5) {
+                alert("🚫 Números não podem repetir!");
+                return;
+            }
+
+            // Salva os valores e avança para a próxima tela
+            if (screenNumber === 1) {
+                importance = values;
+                showScreen(2); // Vai para a tela 2
+            } else {
+                timeSpent = values;
+                showResults(); // Mostra os resultados
+            }
+        }
+
+        function showScreen(screen) {
+            // Esconde todas as telas
+            document.querySelectorAll('.screen').forEach(el => {
+                el.classList.remove('active-screen');
+                el.style.display = 'none';
+            });
+
+            // Mostra a tela solicitada
+            const nextScreen = document.getElementById(screen === 'result' ? 'resultScreen' : `screen${screen}`);
+            nextScreen.style.display = 'block';
+            nextScreen.classList.add('active-screen');
+        }
+
+        function showResults() {
+            showScreen('result'); // Mostra a tela de resultados
+
+            // Gera a comparação visual
+            const comparisonGrid = document.getElementById('comparisonGrid');
+            comparisonGrid.innerHTML = options.map((option, index) => `
+                <div class="comparison-item">
+                    ${option}
+                    <div class="meter">
+                        <div class="meter-fill meter-fill-importance" 
+                             style="width: ${importance[index] * 20}%"></div>
+                    </div>
+                    Importância
+                    
+                    <div class="meter">
+                        <div class="meter-fill meter-fill-time" 
+                             style="width: ${timeSpent[index] * 20}%"></div>
+                    </div>
+                    Tempo
+                </div>
+            `).join('');
+
+            // Calcula o desalinhamento
+            misalignment = importance.reduce((acc, val, idx) => 
+                acc + Math.abs(val - timeSpent[idx]), 0);
+
+            const resultElement = document.getElementById('mainMessage');
+            const secondaryMessage = document.getElementById('secondaryMessage');
+            const leadForm = document.getElementById('leadForm');
+
+            if (misalignment <= 5) {
+                resultElement.textContent = "🎉 Você está no caminho certo!";
+                secondaryMessage.textContent = "Seu tempo está bem alinhado com suas prioridades!";
+                leadForm.style.display = 'none';
+            } else {
+                resultElement.textContent = "⚠️ Atenção: Desalinhamento Detectado!";
+                secondaryMessage.innerHTML = `Sua pontuação de desalinhamento é ${misalignment}<br>
+                    Em ${options.filter((_, i) => Math.abs(importance[i] - timeSpent[i]) > 2).join(', ')}`;
+                leadForm.style.display = 'block';
+            }
+        }
+
+        function submitLead() {
+            const name = document.getElementById('name').value;
+            const restaurant = document.getElementById('restaurant').value;
+            
+            if (!name || !restaurant) {
+                alert("Por favor, preencha todos os campos!");
+                return;
+            }
+
+            // Monta a mensagem para o WhatsApp
+            const message = `Olá, meu nome é ${name} e meu restaurante é ${restaurant}. Aqui está o resultado do meu teste:\n\n` +
+                            `Importância: ${importance.join(', ')}\n` +
+                            `Tempo Gasto: ${timeSpent.join(', ')}\n` +
+                            `Desalinhamento: ${misalignment}`;
+
+            // Codifica a mensagem para URL
+            const encodedMessage = encodeURIComponent(message);
+
+            // Redireciona para o WhatsApp
+            window.location.href = `https://wa.me/+5521988076524?text=${encodedMessage}`;
+        }
+    </script>
+</body>
+</html>
